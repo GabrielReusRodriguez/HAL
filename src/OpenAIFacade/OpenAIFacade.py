@@ -10,7 +10,7 @@ from OpenAIFacade.LogManager import LogManager
 class OpenAIFacade:
 
     #Constructor
-    def __init__(self,_questionManager: QuestionManager, _responseManager: ResponseManager, _logManager : LogManager = None ):
+    def __init__(self, questionManager: QuestionManager, responseManager: ResponseManager, logManager : LogManager = None ):
         #Variables locales.
         #self.unica_ejecucion = False
         #self.log             = False
@@ -18,31 +18,31 @@ class OpenAIFacade:
         #self.batch           = False
         #self.batch_file      = None
         #model_engine    = "gpt-3.5-turbo"
-        self.model_engine       = Engines.GPT_3_5_TURBO
-        self.run_bucle          = True
-        self.questionManager    = _questionManager
-        self.responseManager    = _responseManager
-        self.logManager         = _logManager
+        self._model_engine       = Engines.GPT_3_5_TURBO
+        self._run_bucle          = True
+        self._questionManager    = questionManager
+        self._responseManager    = responseManager
+        self._logManager         = logManager
 
 
     #Funciones
     def run(self):
 
-        while(self.run_bucle):
-            pregunta = self.questionManager.obtenPregunta()
+        while(self._run_bucle):
+            pregunta = self._questionManager.obtenPregunta()
             if pregunta == "***":
-                self.run_bucle = False
+                self._run_bucle = False
                 continue
 
 
             response = openai.ChatCompletion.create(
-                model = self.model_engine,
+                model = self._model_engine,
                 messages = [
                     { "role": "system", "content": pregunta}
                 ]
             )
 
-            self.responseManager.imprimeRespuesta(response)
+            self._responseManager.imprimeRespuesta(response)
             
-            if ( self.questionManager.preguntasPendientes() <= 0 ):    
-                self.run_bucle = False
+            if ( self._questionManager.preguntasPendientes() <= 0 ):    
+                self._run_bucle = False

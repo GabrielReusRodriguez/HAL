@@ -2,4 +2,4 @@
 
 export OPENAI_API_KEY=""
 
-./src/myChatGPT.py
+./src/HAL.py
