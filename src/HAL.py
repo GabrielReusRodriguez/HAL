@@ -17,5 +17,5 @@ from Params.ParamsManager import ParamsManager
 paramManager = ParamsManager( parameterList = sys.argv[1:])
 paramManager.parseArgs()
 
-hal = OpenAIFacade( questionManager = paramManager.questionManager, responseManager = paramManager.responseManager  )
+hal = OpenAIFacade( questionManager = paramManager.questionManager, responseManager = paramManager.responseManager, logManager= paramManager.logManager  )
 hal.run()

@@ -6,7 +6,8 @@ import os
 from Constants.Constants import Constants
 from OpenAIFacade.QuestionManager import QuestionManager
 from OpenAIFacade.ResponseManager import ResponseManager
-
+from OpenAIFacade.LogManager import LogManager
+from LogManager import NullLogManager
 
 class ParamsManager:
 
@@ -29,7 +30,8 @@ class ParamsManager:
         self._log_carpeta = None
         self._inputBatch_file = None
         
-        self.logManager = None
+        #self.logManager = None
+        self.logManager = NullLogManager()
         self.questionManager = None
         self.responseManager = None
 
@@ -58,6 +60,8 @@ class ParamsManager:
                 elif currentArgument in ("-q","--question"):
                     self._listaPreguntas = []
                     self._listaPreguntas.append(currentValue)
+                elif currentArgument in ("-l","--log"):
+                    self.logManager = LogManager()
 
         except getopt.error as err:
             # output error, and return with an error code

@@ -12,7 +12,7 @@ class QuestionManager:
 
         
 
-    def obtenPregunta(self):
+    def obtenPregunta(self) -> str:
         pregunta = None
         if self._interactive == True:
             preguntaConsole = input("*** ¿Que quieres preguntarle a ChatGpt ?:\n")
@@ -24,7 +24,7 @@ class QuestionManager:
             print( "*** "+pregunta+"\n")
         return pregunta
     
-    def preguntasPendientes(self):
+    def preguntasPendientes(self) -> int:
         if self._interactive == True:
             return 1
         else:

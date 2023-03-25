@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import calendar
-import time
 import os
 
-from datetime import datetime
-
+from LogManager import LogManager
 from Exceptions import HALException
 
-class LogManager:
+class FileLogManager(LogManager):
     
     def __init__(self, folder : str = None):
 
@@ -21,38 +18,10 @@ class LogManager:
         #fileName = folder+"/"+fileName
         #self._file = fileName
         self._fileName = "HAL_"+self._getFormatedTimeStamp()+".log"
-        self._fileDescriptor= None
-
-
-    def _getFormatedFileTimeStamp(self) -> str:
-
-        #Current GMT time in a tuple format
-        current_GMT = time.gmtime()
-        
-        # ts stores timestamp
-        ts = calendar.timegm(current_GMT)
-
-        date_time = datetime.fromtimestamp(ts)
-        #str_date_time = date_time.strftime("%d-%m-%Y, %H:%M:%S")
-        str_date_time = date_time.strftime("%d%m%Y_%H%M%S")
-        return str_date_time
-
-
-    def _getFormatedTimeStamp(self) -> str:
-
-        #Current GMT time in a tuple format
-        current_GMT = time.gmtime()
-        
-        # ts stores timestamp
-        ts = calendar.timegm(current_GMT)
-
-        date_time = datetime.fromtimestamp(ts)
-        str_date_time = date_time.strftime("%d-%m-%Y, %H:%M:%S")
-        #str_date_time = date_time.strftime("%d%m%Y_%H%M%S")
-        return str_date_time
+        self._fileDescriptor= None   
+         
 
     def init(self):
-
         if  os.path.isDir(self._folder) == False  :
             exception = HALException(desc="La carpeta no existe")
             raise exception
